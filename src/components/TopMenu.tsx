@@ -1,36 +1,44 @@
-import styles from './topmenu.module.css'
-import Image from 'next/image'
-import TopMenuItem from './TopMenuItem'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions'
-import Link from 'next/link'
+import Image from 'next/image';
+import TopMenuItem from './TopMenuItem';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
+import Link from 'next/link';
 
 export default async function TopMenu() {
-    
     const session = await getServerSession(authOptions);
-    
+
     return (
-        <div className={styles.menucontainer}>
-            <TopMenuItem title='Booking' pageRef='/booking/'/>
-            <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo' 
-            width={0} height={0} sizes='100vh'/>
-            <div className='flex flex-row absolute left-3 h-full'>
-            {
-                session? <Link href="/api/auth/signout"> 
-                    <div className='flex items-center h-full px-2 
-                                    text-[#501717] font-bold font-serif text-sm underline 
-                                    decoration-[#501717] hover:text-[#731f1f] hover:decoration-[#a94444]'>
-                        Sign-Out 
-                    </div></Link>
-                : <Link href="/api/auth/signin"> 
-                    <div className='flex items-center h-full px-2 
-                                    text-[#501717] font-bold font-serif text-sm underline 
-                                    decoration-[#501717] hover:text-[#731f1f] hover:decoration-[#a94444]'>
-                        Sign-In 
-                    </div></Link>
-            }
-            <TopMenuItem title='My Booking' pageRef='/mybooking'/>
+        <nav className="fixed top-0 left-0 w-full bg-black bg-opacity-50 backdrop-blur-md text-white px-6 py-2 flex flex-row items-center justify-between z-50">
+            <div>
+                <Image src="/img/logo.png" alt="Logo" width={50} height={25}/>
             </div>
-        </div>
-    )
+
+            <div className="flex items-center gap-4">
+                <TopMenuItem title="Booking" pageRef="/mybooking" />
+                {session ? (
+                    <Link href="/api/auth/signout">
+                        <div className="px-4 py-2 text-white bg-blue-700 rounded rounded-lg font-bold text-sm
+                                        shadow-lg hover:bg-blue-600 transition duration-300">
+                            Sign-Out
+                        </div>
+                    </Link>
+                ) : (
+                    <>
+                        <Link href="/api/auth/signin">
+                            <div className="px-4 py-2 text-black bg-white rounded rounded-lg font-bold text-sm
+                                            shadow-lg hover:bg-gray-300 transition duration-300">
+                                Sign-In
+                            </div>
+                        </Link>
+                        <Link href="/register">
+                            <div className="px-4 py-2 text-white bg-blue-700 rounded rounded-lg font-bold text-sm
+                                            shadow-lg hover:bg-blue-600 transition duration-300">
+                                Register
+                            </div>
+                        </Link>
+                    </>
+                )}
+            </div>
+        </nav>
+    );
 }
