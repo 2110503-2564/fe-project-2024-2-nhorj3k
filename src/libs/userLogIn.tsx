@@ -14,6 +14,5 @@ export default async function userLogIn(userEmail:string, userPassword:string) {
     if (!response.ok) {
         throw new Error("Failed to log-in");
     } 
-
     return await response.json()
 }

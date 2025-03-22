@@ -10,7 +10,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false); // To handle loading state
 
   const handleRegister = async (e: React.FormEvent) => {
-
+    e.preventDefault();
     setLoading(true); // Set loading state to true while request is in progress
     setError(""); // Clear any previous errors
 
@@ -34,7 +34,7 @@ export default function RegisterPage() {
 
       const result = await response.json();
       console.log("User registered successfully", result);
-      window.location.href = "/"; // Redirect to the login page
+      window.location.href = "http://localhost:3000/api/auth/signin"; // Redirect to the login page
     } catch (error) {
       console.error("Registration error:", error);
       setError("Failed to register. Please try again later."); // Set error message
