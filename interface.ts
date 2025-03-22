@@ -15,6 +15,7 @@ export interface ProviderJson {
 }
 
 export interface BookingItem {
+    _id: string;
     nameLastname: string;
     tel: string;
     venue: string;

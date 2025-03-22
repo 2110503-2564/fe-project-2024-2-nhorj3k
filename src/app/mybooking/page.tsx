@@ -2,7 +2,7 @@ import BookingList from "@/components/BookingList"
 
 export default function MyBooking() {
     return (
-        <main>
+        <main className="pt-16">
             <BookingList></BookingList>
         </main>
     )

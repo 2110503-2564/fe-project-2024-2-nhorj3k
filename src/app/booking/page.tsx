@@ -105,7 +105,7 @@ export default function Booking() {
   )?.name || 'Loading...';
   
   return (
-    <main className="w-[100%] flex flex-col items-center space-y-6 font-serif">
+    <main className="w-[100%] flex flex-col items-center space-y-6 font-serif mt-16">
       <div className="text-2xl font-serif mt-6 text-black">Provider Booking</div>
       
       {message && (

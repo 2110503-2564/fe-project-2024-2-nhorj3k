@@ -16,8 +16,7 @@ export const authOptions: AuthOptions = {
         const user = await userLogIn(credentials.email, credentials.password);
         
         if (user) {
-          // Assume `user` response contains both `id` and `token`
-          return { id: user._id, token: user.token }; // Return both id and token
+          return { id: user._id, token: user.token, role: user.role }; 
         } else {
           return null;
         }
@@ -28,15 +27,18 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id; // Store the id in the token
-        token.token = user.token; // Store the token in the token
+        token.id = user.id;
+        token.token = user.token;
+        token.role = user.role;  // ✅ Store role in token
       }
       return token;
     },
     async session({ session, token }) {
-      session.user._id = String(token.id); // Assign the id to the session
-      session.user.token = String(token.token); // Assign the token to the session
-      console.log(session.user.token); // Log the token
+      session.user._id = String(token.id);
+      session.user.token = String(token.token);
+      session.user.role = String(token.role); // ✅ Assign role to session
+
+      console.log(session.user.role); // Debugging: Log role
       return session;
     }
   }
