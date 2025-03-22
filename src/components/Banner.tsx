@@ -23,7 +23,7 @@ export default function Banner () {
                 <h3 className='text-xl font-serif text-white'>"Rain or shine, your ride's on time"</h3>
                 <button className='bg-white text-black font-semibold font-serif py-2 px-4 mt-5
                         rounded-lg shadow-lg hover:bg-gray-300 transition duration-300 absolute top-50 left-1/2 transform -translate-x-1/2'
-                        onClick={() => {router.push('/venue')}}>
+                        onClick={() => {router.push('/provider')}}>
                             Check out our providers across the borders!
                 </button>
             </div>

@@ -10,11 +10,13 @@ export default async function TopMenu() {
     return (
         <nav className="fixed top-0 left-0 w-full bg-black bg-opacity-50 backdrop-blur-md text-white px-6 py-2 flex flex-row items-center justify-between z-50">
             <div>
+                <Link href='/'>
                 <Image src="/img/logo.png" alt="Logo" width={50} height={25}/>
+                </Link>
             </div>
 
             <div className="flex items-center gap-4">
-                <TopMenuItem title="Booking" pageRef="/mybooking" />
+                <TopMenuItem title="My Booking" pageRef="/mybooking" />
                 {session ? (
                     <Link href="/api/auth/signout">
                         <div className="px-4 py-2 text-white bg-blue-700 rounded rounded-lg font-bold text-sm

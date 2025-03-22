@@ -24,7 +24,7 @@ export default function RegisterPage() {
           name,
           email,
           password,
-          role: "admin",
+          role: "user",
         }),
       });
 
@@ -44,7 +44,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 text-black">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
         {error && <div className="mb-4 text-red-500">{error}</div>}
