@@ -101,7 +101,7 @@ export default function StatsPage() {
                 <div className="px-4 py-5 sm:p-6">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 truncate">Total Providers</dt>
-                    <dd className="mt-1 text-3xl font-semibold text-green-600">{stats.length}</dd>
+                    <dd className="mt-1 text-3xl font-semibold text-purple-400">{stats.length}</dd>
                   </dl>
                 </div>
               </div>

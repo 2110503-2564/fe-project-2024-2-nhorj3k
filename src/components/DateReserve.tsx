@@ -30,11 +30,9 @@ export default function DateReserve({ onDateChange }: DateReserveProps) {
           label="Select Date"
           value={bookDate}
           onChange={handleDateChange}
-          // Here we add slotProps to style the underlying text field
           slotProps={{
             textField: {
               size: "small",
-              // You can add MUI or Tailwind classes here:
               className:
                 "bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500",
             },

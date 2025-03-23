@@ -27,7 +27,7 @@ export default async function TopMenu() {
             {/* Stats Button for Admin */}
             {isAdmin && (
               <Link href="/stats">
-                <div className="px-4 py-2 text-black bg-purple-400 rounded-lg font-bold text-sm shadow-lg hover:bg-purple-300 transition duration-300">
+                <div className="px-4 py-2 text-black bg-purple-400 rounded-lg font-bold text-sm shadow-lg hover:bg-purple-500 transition duration-300">
                   View Stats
                 </div>
               </Link>
@@ -35,7 +35,7 @@ export default async function TopMenu() {
 
             {/* Change Password Button */}
             <Link href="/changepassword">
-              <div className="px-4 py-2 text-black bg-green-500 rounded-lg font-bold text-sm shadow-lg hover:bg-yellow-400 transition duration-300">
+              <div className="px-4 py-2 text-black bg-green-500 rounded-lg font-bold text-sm shadow-lg hover:bg-green-600 transition duration-300">
                 Change Password
               </div>
             </Link>
