@@ -2,16 +2,14 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
-// Define types for your data
 interface Provider {
   _id: string;
   name: string;
   address: string;
   tel: string;
-  bookings: any[]; // You can define a more specific type for bookings if needed
+  bookings: any[];
 }
 
-// Define the message type
 type MessageType = {
   type: 'success' | 'error';
   text: string;
@@ -27,7 +25,6 @@ export default function Booking() {
   const { data: session } = useSession();
   
   useEffect(() => {
-    // Fetch providers on component mount
     const fetchProviders = async () => {
       try {
         const response = await fetch('https://swp-backend.onrender.com/api/v1/providers');
@@ -35,7 +32,6 @@ export default function Booking() {
         
         if (data && data.data) {
           setProviders(data.data);
-          // Set first provider as default if available
           if (data.data.length > 0) {
             setSelectedProvider(data.data[0]._id);
           }
@@ -99,7 +95,6 @@ export default function Booking() {
     }
   };
   
-  // Find the selected provider name
   const selectedProviderName = providers.find(
     provider => provider._id === selectedProvider
   )?.name || 'Loading...';
@@ -120,7 +115,7 @@ export default function Booking() {
         <div className="text-md text-left text-gray-600">Select Provider</div>
         <select
           id="provider"
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-black"
           value={selectedProvider}
           onChange={handleProviderChange}
           disabled={loading}

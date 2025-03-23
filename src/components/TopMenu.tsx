@@ -17,7 +17,9 @@ export default async function TopMenu() {
             </div>
 
             <div className="flex items-center gap-4">
-                <TopMenuItem title={isAdmin ? "All Bookings" : "My Booking"} pageRef={"/mybooking"} />
+                {session && (
+                    <TopMenuItem title={isAdmin ? "All Bookings" : "My Booking"} pageRef="/mybooking" />
+                )}
 
                 {session ? (
                     <Link href="/api/auth/signout">

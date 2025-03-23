@@ -219,7 +219,7 @@ export default function BookingList() {
       {/* Bookings list */}
       {!loading && bookings.length === 0 ? (
         <div className="text-center text-gray-600 text-2xl font-serif mt-5">
-          No Venue Booking
+          Your booking list is empty. Explore providers to get started!
         </div>
       ) : (
         bookings.map((bookingItem: BookingItem) => (
@@ -235,7 +235,7 @@ export default function BookingList() {
             <div className="text-sm">Date: {bookingItem.bookDate}</div>
             {session?.user?.role === "admin" && (
       <div className="text-sm font-medium text-indigo-700 mt-1">
-        Booked by: {bookingItem.bookedBy}
+        Booked by: {bookingItem.bookedBy} ()
       </div>
     )}
 
