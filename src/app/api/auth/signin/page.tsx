@@ -29,7 +29,7 @@ export default function SignIn() {
       setError('Invalid email or password');
       setLoading(false);
     } else {
-      router.push('/dashboard'); // Redirect after successful login
+      router.push('/');
     }
   };
 
