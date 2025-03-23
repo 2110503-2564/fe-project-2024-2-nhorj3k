@@ -24,7 +24,7 @@ export default function DateReserve({ onDateChange }: DateReserveProps) {
   };
 
   return (
-    <div className="bg-yellow-100 rounded-lg px-6 py-4 inline-flex items-center space-x-4">
+    <div className="bg-gray-300 rounded-lg px-6 py-4 inline-flex items-center space-x-4">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           label="Select Date"
