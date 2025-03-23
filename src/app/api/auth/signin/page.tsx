@@ -1,6 +1,3 @@
-// For App Router: /app/auth/signin/page.tsx
-// For Pages Router: /pages/auth/signin.tsx
-
 "use client";
 
 import { useState, FormEvent } from 'react';

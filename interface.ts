@@ -18,6 +18,6 @@ export interface BookingItem {
     _id: string;
     nameLastname: string;
     tel: string;
-    venue: string;
+    address: string;
     bookDate: string;
 }

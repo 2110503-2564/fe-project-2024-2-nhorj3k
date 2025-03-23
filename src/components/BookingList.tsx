@@ -7,7 +7,7 @@ interface BookingItem {
     _id: string;
     nameLastname: string;
     tel: string;
-    venue: string;
+    address: string;
     bookDate: string;
     bookedBy?: string;
     selectedProvider?: string; // Add these new properties
@@ -51,7 +51,7 @@ export default function BookingList() {
             const bookingsData = responseData.data.map((booking: any) => ({
                 nameLastname: booking.provider.name,
                 tel: booking.provider.tel,
-                venue: booking.provider.address,
+                address: booking.provider.address,
                 bookDate: booking.rentalDate,
                 _id: booking._id,
                 bookedBy: booking.user?.name || booking.user?.email || booking.user || "Unknown user",
@@ -238,18 +238,18 @@ export default function BookingList() {
       ) : (
         bookings.map((bookingItem: BookingItem) => (
           <div
-            className="bg-green-100 rounded-lg shadow-md p-4 text-gray-800"
+            className="bg-gray-300 rounded-lg shadow-md p-4 text-gray-800"
             key={bookingItem._id}
           >
             <div className="text-lg font-semibold">
               {bookingItem.nameLastname}
             </div>
             <div className="text-sm">Tel: {bookingItem.tel}</div>
-            <div className="text-sm">Location: {bookingItem.venue}</div>
+            <div className="text-sm">Location: {bookingItem.address}</div>
             <div className="text-sm">Date: {bookingItem.bookDate}</div>
             {session?.user?.role === "admin" && (
       <div className="text-sm font-medium text-indigo-700 mt-1">
-        Booked by: {bookingItem.bookedBy} ()
+        Booked by: {bookingItem.bookedBy} 
       </div>
     )}
 
@@ -275,11 +275,11 @@ export default function BookingList() {
             {/* Provider dropdown and Date picker */}
             <div className="mt-3 flex gap-2">
               <select
-  value={bookingItem.selectedProvider || ""}
-  onChange={(e) => updateBookingField(bookingItem._id, "selectedProvider", e.target.value)}
-  className="flex-1 p-2 border rounded-md"
-  disabled={loading}
->
+                value={bookingItem.selectedProvider || ""}
+                onChange={(e) => updateBookingField(bookingItem._id, "selectedProvider", e.target.value)}
+                className="flex-1 p-2 border rounded-md"
+                disabled={loading}
+              >
                 {providers.map((provider: any) => (
                   <option key={provider._id} value={provider._id}>
                     {provider.name}
@@ -288,12 +288,12 @@ export default function BookingList() {
               </select>
 
               <input
-  type="date"
-  value={bookingItem.selectedDate || ""}
-  onChange={(e) => updateBookingField(bookingItem._id, "selectedDate", e.target.value)}
-  className="flex-1 p-2 border rounded-md"
-  disabled={loading}
-/>
+                type="date"
+                value={bookingItem.selectedDate || ""}
+                onChange={(e) => updateBookingField(bookingItem._id, "selectedDate", e.target.value)}
+                className="flex-1 p-2 border rounded-md"
+                disabled={loading}
+              />
             </div>
           </div>
         ))
