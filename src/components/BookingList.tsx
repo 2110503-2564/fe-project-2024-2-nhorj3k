@@ -9,8 +9,11 @@ interface BookingItem {
     tel: string;
     venue: string;
     bookDate: string;
-    bookedBy?: string; // Add this new property
+    bookedBy?: string;
+    selectedProvider?: string; // Add these new properties
+    selectedDate?: string;
   }
+  
 
 export default function BookingList() {
   const { data: session } = useSession();
@@ -45,14 +48,16 @@ export default function BookingList() {
   
         const responseData = await response.json();
         if (responseData.success) {
-          const bookingsData = responseData.data.map((booking: any) => ({
-            nameLastname: booking.provider.name,
-            tel: booking.provider.tel,
-            venue: booking.provider.address,
-            bookDate: booking.rentalDate,
-            _id: booking._id,
-            bookedBy: booking.user?.name || booking.user?.email || booking.user || "Unknown user", // Extract user info
-          }));
+            const bookingsData = responseData.data.map((booking: any) => ({
+                nameLastname: booking.provider.name,
+                tel: booking.provider.tel,
+                venue: booking.provider.address,
+                bookDate: booking.rentalDate,
+                _id: booking._id,
+                bookedBy: booking.user?.name || booking.user?.email || booking.user || "Unknown user",
+                selectedProvider: booking.provider._id, // Set initial selected provider
+                selectedDate: booking.rentalDate, // Set initial selected date
+              }));
           setBookings(bookingsData);
         } else {
           setMessage({
@@ -148,26 +153,38 @@ export default function BookingList() {
     }
   };
 
+  const updateBookingField = (bookingId: string, field: string, value: string) => {
+    setBookings(bookings.map(booking => 
+      booking._id === bookingId 
+        ? { ...booking, [field]: value } 
+        : booking
+    ));
+  };
+
   // Handle editing a booking
   const handleEditBooking = async (bookingId: string) => {
-    if (session?.user?.token && selectedProvider && selectedDate) {
-      try {
-        setLoading(true);
-        const token = session.user.token;
-        const response = await fetch(
-          `https://swp-backend.onrender.com/api/v1/bookings/${bookingId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              rentalDate: selectedDate,
-              provider: selectedProvider,
-            }),
-          }
-        );
+    const booking = bookings.find(b => b._id === bookingId);
+  if (!booking || !session?.user?.token || !booking.selectedProvider || !booking.selectedDate) {
+    setMessage({ type: "error", text: "Please select a provider and date" });
+    return;
+  }
+        try {
+            setLoading(true);
+            const token = session.user.token;
+            const response = await fetch(
+              `https://swp-backend.onrender.com/api/v1/bookings/${bookingId}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                  rentalDate: booking.selectedDate,
+                  provider: booking.selectedProvider,
+                }),
+              }
+            );
 
         const result = await response.json();
         if (result.success) {
@@ -189,9 +206,6 @@ export default function BookingList() {
       } finally {
         setLoading(false);
       }
-    } else {
-      setMessage({ type: "error", text: "Please select a provider and date" });
-    }
   };
 
   return (
@@ -261,11 +275,11 @@ export default function BookingList() {
             {/* Provider dropdown and Date picker */}
             <div className="mt-3 flex gap-2">
               <select
-                value={selectedProvider}
-                onChange={(e) => setSelectedProvider(e.target.value)}
-                className="flex-1 p-2 border rounded-md"
-                disabled={loading}
-              >
+  value={bookingItem.selectedProvider || ""}
+  onChange={(e) => updateBookingField(bookingItem._id, "selectedProvider", e.target.value)}
+  className="flex-1 p-2 border rounded-md"
+  disabled={loading}
+>
                 {providers.map((provider: any) => (
                   <option key={provider._id} value={provider._id}>
                     {provider.name}
@@ -274,12 +288,12 @@ export default function BookingList() {
               </select>
 
               <input
-                type="date"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                className="flex-1 p-2 border rounded-md"
-                disabled={loading}
-              />
+  type="date"
+  value={bookingItem.selectedDate || ""}
+  onChange={(e) => updateBookingField(bookingItem._id, "selectedDate", e.target.value)}
+  className="flex-1 p-2 border rounded-md"
+  disabled={loading}
+/>
             </div>
           </div>
         ))
