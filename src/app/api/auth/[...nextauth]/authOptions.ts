@@ -29,14 +29,14 @@ export const authOptions: AuthOptions = {
       if (user) {
         token.id = user.id;
         token.token = user.token;
-        token.role = user.role;  // ✅ Store role in token
+        token.role = user.role;  // Store role in token
       }
       return token;
     },
     async session({ session, token }) {
       session.user._id = String(token.id);
       session.user.token = String(token.token);
-      session.user.role = String(token.role); // ✅ Assign role to session
+      session.user.role = String(token.role); // Assign role to session
       console.log(session.user.role); // Debugging: Log role
       return session;
     }

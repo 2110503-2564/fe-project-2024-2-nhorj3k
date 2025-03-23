@@ -107,17 +107,6 @@ a {
   }
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  gap: 20px; /* Adjust the gap between cards as needed */
-  margin: 20px;
-}
-
-.card-link {
-  width: 100%; /* Ensure the card takes up the full width of the grid cell */
-}
-
 @keyframes slideDown {
   0% { transform: translateY(-20px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }

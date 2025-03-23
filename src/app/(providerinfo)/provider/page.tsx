@@ -1,28 +1,30 @@
-import getVenues from "@/libs/getProviders";
+import getProviders from "@/libs/getProviders";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import ProviderCatalog from "@/components/ProviderCatalog";
 
 export default function Card() {
-    const providers = getVenues();
+    const providers = getProviders();
 
     return (
         <main className="text-center">
-            {/* Top Section with Background Image */}
             <div
-                className="relative bg-cover bg-center h-[36rem]"
+                className="relative bg-fixed bg-cover bg-center min-h-[90vh] flex items-center justify-center"
                 style={{ backgroundImage: "url('/img/providers.jpg')" }}
             >
-                {/* Overlay to make content readable */}
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-
-                {/* Content */}
-                <div className="relative z-10 flex flex-col justify-center h-full">
-                    <h1 className="text-xl font-medium text-white font-serif">Select Your Provider</h1>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30"></div>
+                
+                <div className="relative z-10 space-y-6 animate-fadeInUp">
+                    <h1 className="text-4xl md:text-6xl font-bold text-white font-serif mb-4">
+                        Find Your Perfect Provider
+                    </h1>
+                    <p className="text-xl text-white/90 font-light max-w-2xl mx-auto">
+                        Discover trusted service providers tailored to your needs
+                    </p>
                 </div>
             </div>
 
-            <div className="p-5">
+            <div className="p-5 mt-5">
                 <Suspense fallback={<p>Loading... <LinearProgress /></p>}>
                     <ProviderCatalog providersJson={providers} />
                 </Suspense>
