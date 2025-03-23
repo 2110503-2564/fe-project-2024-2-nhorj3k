@@ -18,16 +18,25 @@ export default async function TopMenu() {
 
             <div className="flex items-center gap-4">
                 {session && (
-                    <TopMenuItem title={isAdmin ? "All Bookings" : "My Booking"} pageRef="/mybooking" />
+                    <>
+                        <TopMenuItem title={isAdmin ? "All Bookings" : "My Booking"} pageRef="/mybooking" />
+                        
+                        {/* Change Password Button */}
+                        <Link href="/changepassword">
+                            <div className="px-4 py-2 text-black bg-green-500 rounded-lg font-bold text-sm shadow-lg hover:bg-yellow-400 transition duration-300">
+                                Change Password
+                            </div>
+                        </Link>
+
+                        <Link href="/api/auth/signout">
+                            <div className="px-4 py-2 text-white bg-blue-700 rounded-lg font-bold text-sm shadow-lg hover:bg-blue-600 transition duration-300">
+                                Sign-Out
+                            </div>
+                        </Link>
+                    </>
                 )}
 
-                {session ? (
-                    <Link href="/api/auth/signout">
-                        <div className="px-4 py-2 text-white bg-blue-700 rounded-lg font-bold text-sm shadow-lg hover:bg-blue-600 transition duration-300">
-                            Sign-Out
-                        </div>
-                    </Link>
-                ) : (
+                {!session && (
                     <>
                         <Link href="/api/auth/signin">
                             <div className="px-4 py-2 text-black bg-white rounded-lg font-bold text-sm shadow-lg hover:bg-gray-300 transition duration-300">
