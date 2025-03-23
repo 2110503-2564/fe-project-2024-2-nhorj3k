@@ -37,7 +37,6 @@ export const authOptions: AuthOptions = {
       session.user._id = String(token.id);
       session.user.token = String(token.token);
       session.user.role = String(token.role); // ✅ Assign role to session
-
       console.log(session.user.role); // Debugging: Log role
       return session;
     }
