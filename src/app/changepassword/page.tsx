@@ -41,7 +41,7 @@ export default function ChangePasswordPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full text-black">
                 <h2 className="text-2xl font-bold text-center mb-4">Change Password</h2>
                 {message && (
                     <p className={`text-center ${message.includes("success") ? "text-green-500" : "text-red-500"}`}>
