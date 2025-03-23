@@ -1,35 +1,59 @@
 'use client'
-import { DatePicker } from "@mui/x-date-pickers"
-import { LocalizationProvider } from "@mui/x-date-pickers"
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { Select, MenuItem } from "@mui/material"
-import { Dayjs } from "dayjs"
-import { useState } from "react"
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Dayjs } from "dayjs";
+import { useState } from "react";
 
-export default function DateReserve({onDateChange, onLocationChange}
-    : {onDateChange:Function, onLocationChange:Function}) {
-    
-    const [bookDate, setBookDate] = useState<Dayjs|null>(null)
-    const [location, setLocation] = useState<string|null>(null)
-    
-    return (
-        <div className="bg-yellow-100 rounded-lg space-x-5 space-y-2 
-        w-fit px-10 py-5 flex flex-row justify-center">
+interface DateReserveProps {
+  onDateChange: (date: Dayjs | null, time: Dayjs | null) => void;
+}
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker className="bg-white"
-                value={bookDate}
-                onChange={(value)=>{setBookDate(value); onDateChange(value)}}/>
-            </LocalizationProvider>
+export default function DateReserve({ onDateChange }: DateReserveProps) {
+  const [bookDate, setBookDate] = useState<Dayjs | null>(null);
+  const [bookTime, setBookTime] = useState<Dayjs | null>(null);
 
-            <Select variant="standard" id="venue" value={location}
-            className="h-[2em] w-[200px]" 
-            sx={{ fontFamily: "serif" }}
-            onChange={ (e) => {setLocation(e.target.value); onLocationChange(e.target.value)} }>
-                <MenuItem className="font-serif" value="Bloom">The Bloom Pavilion</MenuItem>
-                <MenuItem className="font-serif" value="Spark">Spark Space</MenuItem>
-                <MenuItem className="font-serif" value="GrandTable">The Grand Table</MenuItem>
-            </Select>
-        </div>
-    )
+  const handleDateChange = (value: Dayjs | null) => {
+    setBookDate(value);
+    onDateChange(value, bookTime);
+  };
+
+  const handleTimeChange = (value: Dayjs | null) => {
+    setBookTime(value);
+    onDateChange(bookDate, value);
+  };
+
+  return (
+    <div className="bg-yellow-100 rounded-lg px-6 py-4 inline-flex items-center space-x-4">
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          label="Select Date"
+          value={bookDate}
+          onChange={handleDateChange}
+          // Here we add slotProps to style the underlying text field
+          slotProps={{
+            textField: {
+              size: "small",
+              // You can add MUI or Tailwind classes here:
+              className:
+                "bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500",
+            },
+          }}
+        />
+        <TimePicker
+          label="Select Time"
+          value={bookTime}
+          onChange={handleTimeChange}
+          ampm={false}
+          slotProps={{
+            textField: {
+              size: "small",
+              className:
+                "bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500",
+            },
+          }}
+        />
+      </LocalizationProvider>
+    </div>
+  );
 }
