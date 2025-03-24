@@ -1,5 +1,4 @@
 'use client';
-import styles from './banner.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -43,7 +42,11 @@ export default function Banner() {
                     <button 
                         className="bg-white text-black font-semibold font-serif py-3 px-6 rounded-lg 
                                    shadow-lg hover:bg-gray-300 transition duration-300"
-                        onClick={() => router.push('/provider')}
+                        onClick={() => {
+                                router.push('/provider');
+                                router.refresh();
+                            }
+                        }
                     >
                         Check out our providers
                     </button>
